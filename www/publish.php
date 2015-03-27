@@ -1,6 +1,5 @@
 <?php
-
-/* 
+/*
  * Copyright (C) 2015 Apocalypse Laboratories
  *
  * This program is free software: you can redistribute it and/or modify
@@ -16,6 +15,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+$page = "publish";
+include("head.php");
+?>
+<div class="container">
+    <div class="page-header">
+        <h1 class="h2">Publish</h1>
+    </div>
 
-include("../head.php");
+    <form method="post" action="/do/publish.php" enctype="multipart/form-data">
+        <span class="btn btn-primary btn-file">
+            Upload package<input name="pluginfile" id="pluginfile" type="file" />
+        </span>     <span class="btn btn-primary btn-file">
+            Upload icon<input name="imagefile" id="imagefile" type="file" />
+        </span>
+    </form>
+</div>
+<?php
+include("footer.php");
 ?>
