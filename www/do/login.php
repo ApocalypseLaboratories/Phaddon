@@ -20,7 +20,6 @@
 ob_start();
 session_start();
 include("../../data/config/advanced.php");
-header("HTTP/1.0 204 No Content");
 
 $user = $_POST['user'];
 $user = str_replace("..", "", $user);

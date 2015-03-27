@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     max-width: 330px;
     padding: 15px;
     margin: 0 auto;
+    background-color: #ffffff;
 }
 .form-signin .form-signin-heading,
 .form-signin .checkbox {

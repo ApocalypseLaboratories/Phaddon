@@ -20,7 +20,6 @@
 ob_start();
 session_start();
 include("../../data/config/advanced.php");
-header("HTTP/1.0 204 No Content");
 
 $user = $_POST['user'];
 $user = str_replace("..", "", $user);
@@ -42,7 +41,7 @@ if (file_exists($userdir)) {
     header('Location: /register.php?err=exists');
     die();
 } else {
-    mkdir($userdir);
+    mkdir($userdir, 0650, true);
 }
 
 
@@ -52,4 +51,4 @@ file_put_contents($userdir."/email.txt", $email);
 
 $_SESSION['user'] = $user;
 
-header("/index.php");
+header("Location: /?msg=acc");

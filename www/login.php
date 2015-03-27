@@ -22,7 +22,7 @@ function error($text) {
     ?>
     <div class="container">
         <div class="form-signin">
-            <div class="alert alert-danger"><?php echo $text; ?></div>
+            <div class="alert alert-danger"><i class="fa fa-times"></i> <?php echo $text; ?></div>
         </div>
     </div>
     <?php
@@ -30,7 +30,7 @@ function error($text) {
 
 function error2($text) {
     ?>
-    <div class="alert alert-danger"><?php echo $text; ?></div>
+    <div class="alert alert-danger"><i class="fa fa-times"></i> <?php echo $text; ?></div>
     <?php
 }
 
@@ -47,7 +47,7 @@ if ($_SESSION['user'] != '') {
                     break;
             }
             ?>
-            <h2 class="form-signin-heading">Please sign in</h2>
+            <h2 class="form-signin-heading h3">Please sign in</h2>
             <label for="user" class="sr-only">Username</label>
             <input type="text" id="user" class="form-control" name="user" placeholder="Username" required autofocus>
             <label for="pass" class="sr-only">Password</label>

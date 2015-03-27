@@ -17,8 +17,3 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-ob_start();
-session_start();
-$_SESSION['user'] = '';
-session_destroy();
-header('Location: /');

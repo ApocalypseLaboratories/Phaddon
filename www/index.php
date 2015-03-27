@@ -1,6 +1,5 @@
 <?php
-
-/* 
+/*
  * Copyright (C) 2015 Apocalypse Laboratories
  *
  * This program is free software: you can redistribute it and/or modify
@@ -18,5 +17,29 @@
  */
 $page = 'index';
 include("head.php");
+if ($_GET['msg'] == 'acc') {
+    ?>
+    <div class="row">
+        <div class="col-xs-10 col-sm-6 col-lg-4 col-xs-offset-1 col-sm-offset-3 col-lg-offset-4">
+            <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <i class="fa fa-check"></i> Account created!
+            </div>
+        </div>
+    </div>
+    <?php
+} else if ($_GET['msg'] == 'lgo') {
+    ?>
+<div class="row">
+        <div class="col-xs-10 col-sm-6 col-lg-4 col-xs-offset-1 col-sm-offset-3 col-lg-offset-4">
+            <div class="alert alert-blue">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <i class="fa fa-info-circle"></i> You have been logged out.
+            </div>
+        </div>
+    </div>
+<?php
+}
+include("inc/topapps.php");
 include("footer.php");
 ?>
