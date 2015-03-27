@@ -1,0 +1,3 @@
+/data/users/*
+/data/users/*/passwd
+/data/users/*/email.txt
