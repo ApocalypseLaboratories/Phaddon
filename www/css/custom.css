@@ -46,3 +46,36 @@ body {
     cursor: inherit;
     display: block;
 }
+
+.apppanel {
+    background-color: white;
+    -webkit-box-shadow: 0px 18px 12px 8px rgba(0,0,0,0.55);
+    -moz-box-shadow: 0px 18px 12px 8px rgba(0,0,0,0.55);
+    box-shadow: 0px 18px 12px 8px rgba(0,0,0,0.55);
+    padding: 10px;
+}
+
+.appicon {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+
+.platformicons {
+    color: #a2a2a2;
+    display: inline;
+}
+
+.platformicons .platforms {
+    margin-left: 5px;
+    font-size: 130%;
+    padding: 5px;
+}
+
+.dl-btn {
+    font-size: 120%;
+}
+
+.platformicons .platforms .override {
+    color: black;
+}
