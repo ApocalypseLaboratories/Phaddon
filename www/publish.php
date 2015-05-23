@@ -17,19 +17,33 @@
  */
 $page = "publish";
 include("head.php");
+if (!isset($_SESSION['user']) || $_SESSION['user'] == '') {
+    header('Location: login.php');
+    die();
+}
 ?>
 <div class="container">
-    <div class="page-header">
-        <h1 class="h2">Publish</h1>
-    </div>
+    <div class="pagepanel">
+        <h1>Publish</h1>
 
-    <form method="post" action="/do/publish.php" enctype="multipart/form-data">
-        <span class="btn btn-primary btn-file">
-            Upload package<input name="pluginfile" id="pluginfile" type="file" />
-        </span>     <span class="btn btn-primary btn-file">
-            Upload image<input name="imagefile" id="imagefile" type="file" />
-        </span>
-    </form>
+        <form method="post" action="/do/publish.php" enctype="multipart/form-data">
+            <span class="btn btn-primary btn-file">
+                Upload package<input name="appfile" id="pluginfile" type="file" required="required" />
+            </span>     <span class="btn btn-primary btn-file">
+                Upload image<input name="imagefile" id="imagefile" type="file" required="required" />
+            </span><br /><br /><br />
+            <label for="name">Package Name:</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="My App Name" required="required" />
+            <label for="package">Package ID:</label>
+            <input type="text" class="form-control" id="package" name="package" placeholder="com.example.myapp" required="required" />
+            <label for="sdesc">Short Description:</label>
+            <input type="text" class="form-control" id="sdesc" name="sdesc" placeholder="Short description of the package." required="required" />
+            <label for="ldesc">Long Description:</label>
+            <textarea rows="10" class="form-control" id="ldesc" name="ldesc" placeholder="Description of the package." required="required" ></textarea>
+            <br />
+            <input type="submit" class="btn btn-success" value="Publish" />
+        </form>
+    </div>
 </div>
 <?php
 include("footer.php");

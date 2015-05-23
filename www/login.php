@@ -54,6 +54,8 @@ if ($_SESSION['user'] != '') {
             <input type="password" id="pass" class="form-control" placeholder="Password" name="pass" required>
             <br />
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <p style="text-align: center; font-size: 120%;"><br /><i>or</i></p>
+            <a class="btn btn-lg btn-primary btn-block" href="register.php">Register</a>
         </form>
 
     </div> <!-- /container -->

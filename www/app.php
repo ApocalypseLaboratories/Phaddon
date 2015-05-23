@@ -21,7 +21,7 @@ $appid = str_replace("\\", "", str_replace("..", "", str_replace("/", "", $_GET[
 if (file_exists('../data/apps/' . $appid)) {
     $appdata = json_decode(file_get_contents('../data/apps/' . $appid . '/info.json'), TRUE);
     ?>
-    <div class="apppanel">
+    <div class="pagepanel">
         <div class="row">
             <div class="col-xs-12 col-sm-4">
                 <img class="img-responsive appicon" src="<?php echo $appdata['icon']; ?>">

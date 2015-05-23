@@ -74,7 +74,7 @@ include("../data/config/basic.php");
                                     <li><a href="/login.php">Login</a></li>
                                     <li><a href="/register.php">Register</a></li>
 <?php } else { ?>
-                                    <li><a href="/publish/">Publish</a></li>
+                                    <li><a href="/publish.php">Publish</a></li>
                                     <li><a href="/user/">Profile</a></li>
                                     <li class="divider"></li>
                                     <li><a href="/do/logout.php">Logout</a></li>

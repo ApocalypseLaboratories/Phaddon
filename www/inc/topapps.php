@@ -16,8 +16,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$featured = json_decode("../data/apps/featured.json", true);
-$topapps = json_decode("../data/apps/top.json", true);
+$featured = json_decode(file_get_contents("../data/apps/featured.json"), true);
+$topapps = json_decode(file_get_contents("../data/apps/top.json"), true);
 ?>
 <div class="container">
     <div class="row">
@@ -31,7 +31,7 @@ $topapps = json_decode("../data/apps/top.json", true);
                 <div class="panel-body">
                     <div class="row">
                         <?php
-                        foreach ($app as $featured) {
+                        foreach ($featured as $key => $app) {
                             echo '<div class="col-xs-4 col-sm-3 col-lg-2">'
                             . '<img class="img-responsive" src="/appicon.php?app=' . $app['id'] . '" />'
                             . '<br><h4><small>' . $app['name'] . '</small></h4>'
@@ -52,7 +52,7 @@ $topapps = json_decode("../data/apps/top.json", true);
                 <div class="panel-body">
                     <div class="row">
                         <?php
-                        foreach ($app as $topapps) {
+                        foreach ($topapps as $key => $app) {
                             echo '<div class="col-xs-4 col-sm-3 col-lg-2">'
                             . '<img class="img-responsive" src="/appicon.php?app=' . $app['id'] . '" />'
                             . '<br><h4><small>' . $app['name'] . '</small></h4>'
