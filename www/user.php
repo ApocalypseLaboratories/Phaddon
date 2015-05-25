@@ -44,6 +44,48 @@ if ($myappcount > 0) {
                     <h4>Info:</h4>
                     <p class="h6"><b>Username: </b> <?php echo $_SESSION['user']; ?></p>
                     <p class="h6"><b>Published: </b> <?php echo $myappcount; ?> packages</p>
+                    <br />
+                    <h4>Change password:</h4>
+                    <?php
+                    if (isset($_GET['err'])) {
+                        $err = "";
+                        switch ($_GET['err']) {
+                            case 'incpass':
+                                $err = "Fill out all boxes.";
+                                break;
+                            case 'passmismatch':
+                                $err = "New passwords do not match.";
+                                break;
+                            case 'badpass':
+                                $err = "Current password incorrect.";
+                                break;
+                        }
+                        if ($err != "") {
+                            echo "<div class='alert alert-danger'>$err</div>";
+                        }
+                    }
+                    if (isset($_GET['msg'])) {
+                        $msg = "";
+                        switch ($_GET['msg']) {
+                            case 'passchanged':
+                                $msg = "Password successfully changed.";
+                                break;
+                        }
+                        if ($msg != "") {
+                            echo "<div class='alert alert-success'>$msg</div>";
+                        }
+                    }
+                    ?>
+                    <form action="/do/passwd.php" method="POST">
+                        <label for="oldpass">Current password:</label>
+                        <input type="password" name="oldpass" id="oldpass" class="form-control" />
+                        <label for="newpass">New password:</label>
+                        <input type="password" name="newpass" id="confpass" class="form-control" />
+                        <label for="confpass">Confirm password:</label>
+                        <input type="password" name="confpass" id="confpass" class="form-control" />
+                        <br />
+                        <input type="submit" class="btn btn-primary" value="Change" />
+                    </form>
                 </div>
                 <div class="col-xs-12 col-sm-6">
                     <h4>My Packages:</h4>
