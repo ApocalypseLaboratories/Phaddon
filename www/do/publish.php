@@ -54,16 +54,16 @@ try {
 
     // DO NOT TRUST $_FILES['upfile']['mime'] VALUE !!
     // Check MIME Type by yourself.
-    /*$finfo = new finfo(FILEINFO_MIME_TYPE);
-    if (false === $ext = array_search(
-            $finfo->file($_FILES['imagefile']['tmp_name']), array(
-        'jpg' => 'image/jpeg',
-        'png' => 'image/png',
-        'gif' => 'image/gif',
-            ), true
-            )) {
-        throw new RuntimeException('Invalid image format.');
-    }*/
+    /* $finfo = new finfo(FILEINFO_MIME_TYPE);
+      if (false === $ext = array_search(
+      $finfo->file($_FILES['imagefile']['tmp_name']), array(
+      'jpg' => 'image/jpeg',
+      'png' => 'image/png',
+      'gif' => 'image/gif',
+      ), true
+      )) {
+      throw new RuntimeException('Invalid image format.');
+      } */
 
     if (!preg_match("/[a-z0-9\.]+/", $_POST['package'])) {
         throw new RuntimeException('Invalid package name.');
@@ -76,9 +76,10 @@ try {
     mkdir("../../data/apps/" . $_POST['package']);
 
     // Image
-    imagepng(imagecreatefromstring(
-                    file_get_contents(
-                            $_FILES['imagefile']['tmp_name'])), "../../data/apps/" . $_POST['package'] . "/icon.png");
+    $img = imagecreatefromstring(file_get_contents($_FILES['imagefile']['tmp_name']));
+    imagealphablending($img, false);
+    imagesavealpha($img, true);
+    imagepng($img, "../../data/apps/" . $_POST['package'] . "/icon.png");
 
     $appdata = [];
     $appdata['name'] = $_POST['name'];
