@@ -75,6 +75,9 @@ try {
 
     mkdir("../../data/apps/" . $_POST['package']);
 
+    $uapps = "../../data/users/" . $_SESSION['user'] . "/myapps.txt";
+    file_put_contents($uapps, $_POST['package']."\n", FILE_APPEND);
+
     // Image
     $img = imagecreatefromstring(file_get_contents($_FILES['imagefile']['tmp_name']));
     imagealphablending($img, false);

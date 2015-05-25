@@ -79,7 +79,7 @@ include("../data/config/basic.php");
                                     <li><a href="/register.php">Register</a></li>
                                 <?php } else { ?>
                                     <li><a href="/publish.php">Publish</a></li>
-                                    <li><a href="/user/">Profile</a></li>
+                                    <li><a href="/user.php">Profile</a></li>
                                     <li class="divider"></li>
                                     <li><a href="/do/logout.php">Logout</a></li>
 <?php } ?>
