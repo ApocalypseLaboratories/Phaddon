@@ -17,25 +17,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+ob_start();
 header('Content-Type: text/plain; charset=utf-8');
+session_start();
 
 try {
 
-    // Undefined | Multiple Files | $_FILES Corruption Attack
-    // If this request falls under any of them, treat it invalid.
-    if (
-            !isset($_FILES['upfile']['error']) ||
-            is_array($_FILES['upfile']['error'])
-    ) {
-        throw new RuntimeException('Invalid parameters.');
-    }
-
-    // Check $_FILES['upfile']['error'] value.
-    switch ($_FILES['upfile']['error']) {
+    switch ($_FILES['appfile']['error']) {
         case UPLOAD_ERR_OK:
             break;
         case UPLOAD_ERR_NO_FILE:
-            throw new RuntimeException('No file sent.');
+            throw new RuntimeException('No file uploaded.');
+        case UPLOAD_ERR_INI_SIZE:
+        case UPLOAD_ERR_FORM_SIZE:
+            throw new RuntimeException('Exceeded filesize limit.');
+        default:
+            throw new RuntimeException('Unknown errors.');
+    }
+
+    switch ($_FILES['imagefile']['error']) {
+        case UPLOAD_ERR_OK:
+            break;
+        case UPLOAD_ERR_NO_FILE:
+            throw new RuntimeException('No image sent.');
         case UPLOAD_ERR_INI_SIZE:
         case UPLOAD_ERR_FORM_SIZE:
             throw new RuntimeException('Exceeded filesize limit.');
@@ -50,30 +54,54 @@ try {
 
     // DO NOT TRUST $_FILES['upfile']['mime'] VALUE !!
     // Check MIME Type by yourself.
-    $finfo = new finfo(FILEINFO_MIME_TYPE);
+    /*$finfo = new finfo(FILEINFO_MIME_TYPE);
     if (false === $ext = array_search(
-            $finfo->file($_FILES['upfile']['tmp_name']), array(
+            $finfo->file($_FILES['imagefile']['tmp_name']), array(
         'jpg' => 'image/jpeg',
         'png' => 'image/png',
         'gif' => 'image/gif',
             ), true
             )) {
-        throw new RuntimeException('Invalid file format.');
+        throw new RuntimeException('Invalid image format.');
+    }*/
+
+    if (!preg_match("/[a-z0-9\.]+/", $_POST['package'])) {
+        throw new RuntimeException('Invalid package name.');
     }
 
-    // You should name it uniquely.
-    // DO NOT USE $_FILES['upfile']['name'] WITHOUT ANY VALIDATION !!
-    // On this example, obtain safe unique name from its binary data.
-    if (!move_uploaded_file(
-                    $_FILES['upfile']['tmp_name'], sprintf('./uploads/%s.%s', sha1_file($_FILES['upfile']['tmp_name']), $ext
-                    )
-            )) {
-        throw new RuntimeException('Failed to move uploaded file.');
+    if (file_exists("../../data/apps/" . $_POST['package'])) {
+        throw new RuntimeException('This package ID already exists.  Choose another.');
     }
 
-    echo 'File is uploaded successfully.';
+    mkdir("../../data/apps/" . $_POST['package']);
+
+    // Image
+    imagepng(imagecreatefromstring(
+                    file_get_contents(
+                            $_FILES['imagefile']['tmp_name'])), "../../data/apps/" . $_POST['package'] . "/icon.png");
+
+    $appdata = [];
+    $appdata['name'] = $_POST['name'];
+    $appdata['sdesc'] = $_POST['sdesc'];
+    $appdata['ldesc'] = str_replace("\n", "<br />", $_POST['ldesc']);
+    $appdata['icon'] = "/appicon.php?id=" . $_POST['package'];
+    $appdata['version'] = $_POST['version'];
+
+    $name = $_FILES["file"]["name"];
+    $ext = end((explode(".", $name)));
+
+    if (!move_uploaded_file($_FILES['appfile']['tmp_name'], "../../data/apps/" . $_POST['package'] . "/" . $_POST['package'] . "." . $ext)) {
+        throw new RuntimeException('Failed to complete upload.  Try again.');
+    }
+
+    $appdata['dl'] = $_POST['package'] . "." . $ext;
+
+    $appdata['platforms'] = ["windows", "mac", "linux"];
+
+    file_put_contents("../../data/apps/" . $_POST['package'] . "/info.json", json_encode($appdata));
+
+    header('Location: /app.php?appid=' . $_POST['package']);
 } catch (RuntimeException $e) {
-
-    echo $e->getMessage();
+    $_SESSION['uperr'] = $e->getMessage();
+    header('Location: /publish.php');
 }
-?>

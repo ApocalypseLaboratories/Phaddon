@@ -26,6 +26,14 @@ if (!isset($_SESSION['user']) || $_SESSION['user'] == '') {
     <div class="pagepanel">
         <h1>Publish</h1>
 
+        <?php
+        if (strlen($_SESSION['uperr']) >= 1) {
+            ?>
+        <div class="alert alert-danger"><?php echo $_SESSION['uperr']; ?></div>
+            <?php
+            $_SESSION['uperr'] = '';
+        }
+        ?>
         <form method="post" action="/do/publish.php" enctype="multipart/form-data">
             <span class="btn btn-primary btn-file">
                 Upload package<input name="appfile" id="pluginfile" type="file" required="required" />
@@ -36,10 +44,13 @@ if (!isset($_SESSION['user']) || $_SESSION['user'] == '') {
             <input type="text" class="form-control" id="name" name="name" placeholder="My App Name" required="required" />
             <label for="package">Package ID:</label>
             <input type="text" class="form-control" id="package" name="package" placeholder="com.example.myapp" required="required" />
+            <label for="sdesc">Version:</label>
+            <input type="text" class="form-control" id="version" name="version" placeholder="1.0.0" required="required" />
             <label for="sdesc">Short Description:</label>
             <input type="text" class="form-control" id="sdesc" name="sdesc" placeholder="Short description of the package." required="required" />
             <label for="ldesc">Long Description:</label>
             <textarea rows="10" class="form-control" id="ldesc" name="ldesc" placeholder="Description of the package." required="required" ></textarea>
+
             <br />
             <input type="submit" class="btn btn-success" value="Publish" />
         </form>
