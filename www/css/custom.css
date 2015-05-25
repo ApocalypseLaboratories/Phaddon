@@ -79,3 +79,8 @@ body {
 .platformicons .platforms .override {
     color: black;
 }
+
+.result-image {
+    max-height: 150px;
+    margin: 0 auto;
+}

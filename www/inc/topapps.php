@@ -21,7 +21,7 @@ $topapps = json_decode(file_get_contents("../data/apps/top.json"), true);
 ?>
 <div class="container">
     <div class="row">
-        <div class="col-xs-12 col-sm-6">
+        <div class="col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="panel-title">
@@ -33,7 +33,7 @@ $topapps = json_decode(file_get_contents("../data/apps/top.json"), true);
                         <?php
                         foreach ($featured as $key => $app) {
                             echo '<div class="col-xs-4 col-sm-3 col-lg-2">'
-                            . '<img class="img-responsive" src="/appicon.php?app=' . $app['id'] . '" />'
+                            . '<img class="img-responsive" src="/appicon.php?id=' . $app['id'] . '" />'
                             . '<br><h4><small>' . $app['name'] . '</small></h4>'
                             . '</div>';
                         }
@@ -42,7 +42,8 @@ $topapps = json_decode(file_get_contents("../data/apps/top.json"), true);
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-6">
+        <?php
+        /*<div class="col-xs-12 col-sm-6">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="panel-title">
@@ -62,6 +63,6 @@ $topapps = json_decode(file_get_contents("../data/apps/top.json"), true);
                     </div>
                 </div>
             </div>
-        </div>
+        </div> */?>
     </div>
 </div>

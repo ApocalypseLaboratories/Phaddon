@@ -88,7 +88,7 @@ try {
     $appdata['icon'] = "/appicon.php?id=" . $_POST['package'];
     $appdata['version'] = $_POST['version'];
 
-    $name = $_FILES["file"]["name"];
+    $name = $_FILES["appfile"]["name"];
     $ext = end((explode(".", $name)));
 
     if (!move_uploaded_file($_FILES['appfile']['tmp_name'], "../../data/apps/" . $_POST['package'] . "/" . $_POST['package'] . "." . $ext)) {
