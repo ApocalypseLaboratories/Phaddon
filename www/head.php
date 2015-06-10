@@ -80,7 +80,7 @@ if (!isset($page)) {
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <?php if ($_SESSION['user'] == '') { ?>
+                                <?php if (!isset($_SESSION['user']) || $_SESSION['user'] == '') { ?>
                                     <li><a href="/login.php">Login</a></li>
                                     <li><a href="/register.php">Register</a></li>
                                 <?php } else { ?>

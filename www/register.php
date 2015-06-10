@@ -34,20 +34,22 @@ function error2($text) {
     <?php
 }
 
-if ($_SESSION['user'] != '') {
+if (isset($_SESSION['user']) && $_SESSION['user'] != '') {
     error("You are already signed in!");
 } else {
     ?>
     <div class="container">
         <form class="form-signin" action="do/register.php" method="post">
             <?php
-            switch ($_GET['err']) {
-                case 'email':
-                    error2("Please use a valid email address.");
-                    break;
-                case 'exists':
-                    error2("An account with that username already exists.");
-                    break;
+            if (isset($_GET['err'])) {
+                switch ($_GET['err']) {
+                    case 'email':
+                        error2("Please use a valid email address.");
+                        break;
+                    case 'exists':
+                        error2("An account with that username already exists.");
+                        break;
+                }
             }
             ?>
             <h2 class="form-signin-heading h3">Create account</h2>
