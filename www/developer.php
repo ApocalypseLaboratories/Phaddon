@@ -17,12 +17,11 @@
  */
 
 include("head.php");
-if (!isset($_SESSION['user']) || $_SESSION['user'] == '') {
-    header('Location: login.php');
-    die();
-}
-
-$username = $_SESSION['user'];
+$user = $_GET['user'];
+$user = str_replace("..", "", $user);
+$user = str_replace("/", "", $user);
+$user = str_replace("\\", "", $user);
+$username = $user;
 $appslist = "../data/users/$username/myapps.txt";
 $hasapps = false;
 $myappcount = (file_exists($appslist) ? count(file($appslist)) : 0);
@@ -35,60 +34,18 @@ if ($myappcount > 0) {
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="panel-title">
-                <h3><i class="fa fa-home"></i> My Profile</h3>
+                <h3><i class="fa fa-user"></i> <?php echo $username; ?>'s Profile</h3>
             </div>
         </div>
         <div class="panel-body">
             <div class="row">
-                <div class="col-xs-12 col-sm-6">
+                <div class="col-xs-12">
                     <h4>Info:</h4>
-                    <p class="h6"><b>Username: </b> <?php echo $_SESSION['user']; ?></p>
+                    <p class="h6"><b>Username: </b> <?php echo $username; ?></p>
                     <p class="h6"><b>Published: </b> <?php echo $myappcount; ?> packages</p>
-                    <br />
-                    <h4>Change password:</h4>
-                    <?php
-                    if (isset($_GET['err'])) {
-                        $err = "";
-                        switch ($_GET['err']) {
-                            case 'incpass':
-                                $err = "Fill out all boxes.";
-                                break;
-                            case 'passmismatch':
-                                $err = "New passwords do not match.";
-                                break;
-                            case 'badpass':
-                                $err = "Current password incorrect.";
-                                break;
-                        }
-                        if ($err != "") {
-                            echo "<div class='alert alert-danger'>$err</div>";
-                        }
-                    }
-                    if (isset($_GET['msg'])) {
-                        $msg = "";
-                        switch ($_GET['msg']) {
-                            case 'passchanged':
-                                $msg = "Password successfully changed.";
-                                break;
-                        }
-                        if ($msg != "") {
-                            echo "<div class='alert alert-success'>$msg</div>";
-                        }
-                    }
-                    ?>
-                    <form action="/do/passwd.php" method="POST">
-                        <label for="oldpass">Current password:</label>
-                        <input type="password" name="oldpass" id="oldpass" class="form-control" />
-                        <label for="newpass">New password:</label>
-                        <input type="password" name="newpass" id="confpass" class="form-control" />
-                        <label for="confpass">Confirm password:</label>
-                        <input type="password" name="confpass" id="confpass" class="form-control" />
-                        <br />
-                        <input type="submit" class="btn btn-primary" value="Change" />
-                    </form>
                 </div>
-                <div class="col-xs-12 col-sm-6">
-                    <h4>My Packages:</h4>
+                <div class="col-xs-12">
+                    <h4>Packages:</h4>
                     <?php
                     if ($hasapps) {
                         ?><div class="row"><?php
@@ -123,7 +80,7 @@ if ($myappcount > 0) {
                             }
                             ?></div><?php
                     } else {
-                        echo "<h6>You have not published any packages yet.</h6>";
+                        echo "<h6>$username has not published any packages yet.</h6>";
                     }
                     ?>
                 </div>

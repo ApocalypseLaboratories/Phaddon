@@ -34,17 +34,19 @@ function error2($text) {
     <?php
 }
 
-if ($_SESSION['user'] != '') {
+if (isset($_SESSION['user']) && $_SESSION['user'] != '') {
     error("You are already signed in!");
 } else {
     ?>
     <div class="container">
         <form class="form-signin" action="/do/login.php" method="post">
             <?php
-            switch ($_GET['err']) {
-                case 'bad':
-                    error2("Username or password incorrect.");
-                    break;
+            if (isset($_GET['err'])) {
+                switch ($_GET['err']) {
+                    case 'bad':
+                        error2("Username or password incorrect.");
+                        break;
+                }
             }
             ?>
             <h2 class="form-signin-heading h3">Please sign in</h2>

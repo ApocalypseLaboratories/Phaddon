@@ -20,7 +20,10 @@
 ob_start();
 header('Content-Type: text/plain; charset=utf-8');
 session_start();
-
+if (!isset($_SESSION['user']) || $_SESSION['user'] == '') {
+    header('Location: /login.php');
+    die();
+}
 $data_dir = "";
 try {
 
@@ -105,6 +108,7 @@ try {
     if (isset($_POST['platform']) && is_array($_POST['platform'])) {
         $appdata['platforms'] = $_POST['platform'];
     }
+    $appdata['user'] = $_SESSION['user'];
 
     file_put_contents("../../data/apps/" . $_POST['package'] . "/info.json", json_encode($appdata));
 

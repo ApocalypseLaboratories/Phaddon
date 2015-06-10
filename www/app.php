@@ -21,65 +21,74 @@ $appid = str_replace("\\", "", str_replace("..", "", str_replace("/", "", $_GET[
 if ($appid !== '' && file_exists('../data/apps/' . $appid)) {
     $appdata = json_decode(file_get_contents('../data/apps/' . $appid . '/info.json'), TRUE);
     ?>
-    <div class="pagepanel">
-        <div class="row">
-            <div class="col-xs-12 col-sm-4">
-                <img class="img-responsive appicon" src="<?php echo $appdata['icon']; ?>">
-            </div>
-            <div class="col-xs-12 col-sm-8">
-                <h1><?php echo $appdata['name']; ?></h1>
-                <p><b><?php echo $appdata['sdesc']; ?></b></p>
-                <p><a class="btn btn-success dl-btn" href="/dl.php?appid=<?php echo $appid; ?>"><i class="fa fa-arrow-circle-o-down"></i> Download</a>
-                    <?php
-                    if (isset($appdata['platforms'])) {
-                        ?>
-                        <span class="platformicons">
-                            <?php
-                            $desktop = "";
-                            $mobile = "";
-                            foreach ($appdata['platforms'] as $key => $val) {
-                                switch ($val) {
-                                    case 'windows':
-                                        $desktop .= "<i class='fa fa-windows'></i> ";
-                                        break;
-                                    case 'mac':
-                                        $desktop .= "<i class='fa fa-apple'></i> ";
-                                        break;
-                                    case 'linux':
-                                        $desktop .= "<i class='fa fa-linux'></i> ";
-                                        break;
-                                    case 'android':
-                                        $mobile .= "<i class='fa fa-android'></i> ";
-                                        break;
-                                    case 'ios':
-                                        $mobile .= "<i class='fa fa-apple'></i> ";
-                                        break;
-                                }
-                            }
-                            if (!$desktop == '') {
-                                echo "<span class='platforms btn btn-default'>"
-                                . "<span class='override'><i class='fa fa-desktop'></i> | </span>"
-                                . $desktop
-                                . "</span>";
-                            }
-
-                            if (!$mobile == '') {
-                                echo "<span class='platforms btn btn-default'>"
-                                . "<span class='override'><i class='fa fa-mobile'></i> | </span>"
-                                . $mobile
-                                . "</span>";
-                            }
-                            ?>
-                        </span>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                    <img class="img-responsive appicon" src="<?php echo $appdata['icon']; ?>">
+                </div>
+                <div class="col-xs-12 col-sm-8">
+                    <h1><?php echo $appdata['name']; ?></h1>
+                    <p><b><?php echo $appdata['sdesc']; ?></b></p>
+                    <p><a class="btn btn-success dl-btn" href="/dl.php?appid=<?php echo $appid; ?>"><i class="fa fa-arrow-circle-o-down"></i> Download</a>
                         <?php
-                    }
-                    ?>
-                </p>
+                        if (isset($appdata['platforms'])) {
+                            ?>
+                            <span class="platformicons">
+                                <?php
+                                $desktop = "";
+                                $mobile = "";
+                                foreach ($appdata['platforms'] as $key => $val) {
+                                    switch ($val) {
+                                        case 'windows':
+                                            $desktop .= "<i class='fa fa-windows'></i> ";
+                                            break;
+                                        case 'mac':
+                                            $desktop .= "<i class='fa fa-apple'></i> ";
+                                            break;
+                                        case 'linux':
+                                            $desktop .= "<i class='fa fa-linux'></i> ";
+                                            break;
+                                        case 'android':
+                                            $mobile .= "<i class='fa fa-android'></i> ";
+                                            break;
+                                        case 'ios':
+                                            $mobile .= "<i class='fa fa-apple'></i> ";
+                                            break;
+                                    }
+                                }
+                                if (!$desktop == '') {
+                                    echo "<span class='platforms btn btn-default'>"
+                                    . "<span class='override'><i class='fa fa-desktop'></i> | </span>"
+                                    . $desktop
+                                    . "</span>";
+                                }
+
+                                if (!$mobile == '') {
+                                    echo "<span class='platforms btn btn-default'>"
+                                    . "<span class='override'><i class='fa fa-mobile'></i> | </span>"
+                                    . $mobile
+                                    . "</span>";
+                                }
+                                ?>
+                            </span>
+                            <?php
+                        }
+                        ?>
+                    </p>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12">
-                <p><?php echo $appdata['ldesc']; ?></p>
+            <div class="row">
+                <div class="col-xs-12">
+                    <hr />
+                    <p><?php echo $appdata['ldesc']; ?></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <hr />
+                    <p>Developed by: <a href="/developer.php?user=<?php echo $appdata['user']; ?>"><?php echo $appdata['user']; ?></a></p>
+                </div>
             </div>
         </div>
     </div>

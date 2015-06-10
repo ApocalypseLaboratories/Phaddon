@@ -20,10 +20,14 @@ include("head.php");
 
 echo "<div class='container'>";
 $q = $_GET['q'];
+echo "<h4>Search results for \"$q\":</h4>";
+if ($q == '') {
+    echo "<h5>No results found.</h5>";
+} else {
 
 $dir = "../data/apps/*";
 $results = [];
-// Open a known directory, and proceed to read its contents
+
 foreach (glob($dir) as $file) {
     if (is_dir($file)) {
         if (strpos($file, $q) !== FALSE) {
@@ -35,7 +39,6 @@ foreach (glob($dir) as $file) {
     }
 }
 
-echo "<h4>Search results for \"$q\":</h4>";
 if (count($results) <= 0) {
     echo "<h5>No results found.</h5>";
 }
@@ -54,6 +57,7 @@ foreach ($results as $id => $contents) {
         </a>
     </div>
     <?php
+}
 }
 ?>
 </div>
