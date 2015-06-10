@@ -21,6 +21,7 @@ ob_start();
 header('Content-Type: text/plain; charset=utf-8');
 session_start();
 
+$data_dir = "";
 try {
 
     switch ($_FILES['appfile']['error']) {
@@ -73,10 +74,11 @@ try {
         throw new RuntimeException('This package ID already exists.  Choose another.');
     }
 
-    mkdir("../../data/apps/" . $_POST['package']);
+    $data_dir = "../../data/apps/" . $_POST['package'];
+    mkdir($data_dir);
 
     $uapps = "../../data/users/" . $_SESSION['user'] . "/myapps.txt";
-    file_put_contents($uapps, $_POST['package']."\n", FILE_APPEND);
+    file_put_contents($uapps, $_POST['package'] . "\n", FILE_APPEND);
 
     // Image
     $img = imagecreatefromstring(file_get_contents($_FILES['imagefile']['tmp_name']));
@@ -100,12 +102,17 @@ try {
 
     $appdata['dl'] = $_POST['package'] . "." . $ext;
 
-    $appdata['platforms'] = ["windows", "mac", "linux"];
+    if (isset($_POST['platform']) && is_array($_POST['platform'])) {
+        $appdata['platforms'] = $_POST['platform'];
+    }
 
     file_put_contents("../../data/apps/" . $_POST['package'] . "/info.json", json_encode($appdata));
 
     header('Location: /app.php?appid=' . $_POST['package']);
 } catch (RuntimeException $e) {
     $_SESSION['uperr'] = $e->getMessage();
+    if ($data_dir != "") {
+        rmdir($data_dir);
+    }
     header('Location: /publish.php');
 }

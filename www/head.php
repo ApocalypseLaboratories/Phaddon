@@ -18,6 +18,12 @@
 ob_start();
 session_start();
 include("../data/config/basic.php");
+if (!isset($_GET['msg'])) {
+    $_GET['msg'] = '';
+}
+if (!isset($page)) {
+    $page = '';
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -74,7 +80,7 @@ include("../data/config/basic.php");
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-<?php if ($_SESSION['user'] == '') { ?>
+                                <?php if ($_SESSION['user'] == '') { ?>
                                     <li><a href="/login.php">Login</a></li>
                                     <li><a href="/register.php">Register</a></li>
                                 <?php } else { ?>
@@ -82,7 +88,7 @@ include("../data/config/basic.php");
                                     <li><a href="/user.php">Profile</a></li>
                                     <li class="divider"></li>
                                     <li><a href="/do/logout.php">Logout</a></li>
-<?php } ?>
+                                <?php } ?>
                             </ul>
                         </li>
                     </ul>

@@ -18,7 +18,7 @@
 include('head.php');
 echo "<div class='container'>";
 $appid = str_replace("\\", "", str_replace("..", "", str_replace("/", "", $_GET['appid'])));
-if (file_exists('../data/apps/' . $appid)) {
+if ($appid !== '' && file_exists('../data/apps/' . $appid)) {
     $appdata = json_decode(file_get_contents('../data/apps/' . $appid . '/info.json'), TRUE);
     ?>
     <div class="pagepanel">
@@ -30,44 +30,50 @@ if (file_exists('../data/apps/' . $appid)) {
                 <h1><?php echo $appdata['name']; ?></h1>
                 <p><b><?php echo $appdata['sdesc']; ?></b></p>
                 <p><a class="btn btn-success dl-btn" href="/dl.php?appid=<?php echo $appid; ?>"><i class="fa fa-arrow-circle-o-down"></i> Download</a>
-                    <span class="platformicons">
-                        <?php
-                        $desktop = "";
-                        $mobile = "";
-                        foreach ($appdata['platforms'] as $key => $val) {
-                            switch ($val) {
-                                case 'windows':
-                                    $desktop .= "<i class='fa fa-windows'></i> ";
-                                    break;
-                                case 'mac':
-                                    $desktop .= "<i class='fa fa-apple'></i> ";
-                                    break;
-                                case 'linux':
-                                    $desktop .= "<i class='fa fa-linux'></i> ";
-                                    break;
-                                case 'android':
-                                    $mobile .= "<i class='fa fa-android'></i> ";
-                                    break;
-                                case 'ios':
-                                    $mobile .= "<i class='fa fa-apple'></i> ";
-                                    break;
-                            }
-                        }
-                        if (!$desktop == '') {
-                            echo "<span class='platforms btn btn-default'>"
-                            . "<span class='override'><i class='fa fa-desktop'></i> | </span>"
-                            . $desktop
-                            . "</span>";
-                        }
-
-                        if (!$mobile == '') {
-                            echo "<span class='platforms btn btn-default'>"
-                            . "<span class='override'><i class='fa fa-mobile'></i> | </span>"
-                            . $mobile
-                            . "</span>";
-                        }
+                    <?php
+                    if (isset($appdata['platforms'])) {
                         ?>
-                    </span>
+                        <span class="platformicons">
+                            <?php
+                            $desktop = "";
+                            $mobile = "";
+                            foreach ($appdata['platforms'] as $key => $val) {
+                                switch ($val) {
+                                    case 'windows':
+                                        $desktop .= "<i class='fa fa-windows'></i> ";
+                                        break;
+                                    case 'mac':
+                                        $desktop .= "<i class='fa fa-apple'></i> ";
+                                        break;
+                                    case 'linux':
+                                        $desktop .= "<i class='fa fa-linux'></i> ";
+                                        break;
+                                    case 'android':
+                                        $mobile .= "<i class='fa fa-android'></i> ";
+                                        break;
+                                    case 'ios':
+                                        $mobile .= "<i class='fa fa-apple'></i> ";
+                                        break;
+                                }
+                            }
+                            if (!$desktop == '') {
+                                echo "<span class='platforms btn btn-default'>"
+                                . "<span class='override'><i class='fa fa-desktop'></i> | </span>"
+                                . $desktop
+                                . "</span>";
+                            }
+
+                            if (!$mobile == '') {
+                                echo "<span class='platforms btn btn-default'>"
+                                . "<span class='override'><i class='fa fa-mobile'></i> | </span>"
+                                . $mobile
+                                . "</span>";
+                            }
+                            ?>
+                        </span>
+                        <?php
+                    }
+                    ?>
                 </p>
             </div>
         </div>

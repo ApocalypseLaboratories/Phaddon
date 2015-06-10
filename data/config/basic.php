@@ -31,3 +31,15 @@ $SITE_NAME = "Phaddon";
  * Favicon, relative to web root.
  */
 $FAVICON = "img/favicon.png";
+
+/**
+ * List of platforms published apps can be compatable with.
+ * Comment out a line to remove it from the list.
+ * See app.php starting at line 35 to add more.
+ */
+//    ||   Platform ID   | |   Platform Name
+$PLATFORMS['windows']     = 'Windows';
+$PLATFORMS['mac']         = 'Mac OS X';
+$PLATFORMS['linux']       = 'Linux';
+$PLATFORMS['android']     = 'Android';
+$PLATFORMS['ios']         = 'iOS';

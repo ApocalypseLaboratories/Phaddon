@@ -29,7 +29,7 @@ if (!isset($_SESSION['user']) || $_SESSION['user'] == '') {
         <?php
         if (strlen($_SESSION['uperr']) >= 1) {
             ?>
-        <div class="alert alert-danger"><?php echo $_SESSION['uperr']; ?></div>
+            <div class="alert alert-danger"><?php echo $_SESSION['uperr']; ?></div>
             <?php
             $_SESSION['uperr'] = '';
         }
@@ -49,8 +49,15 @@ if (!isset($_SESSION['user']) || $_SESSION['user'] == '') {
             <label for="sdesc">Short Description:</label>
             <input type="text" class="form-control" id="sdesc" name="sdesc" placeholder="Short description of the package." required="required" />
             <label for="ldesc">Long Description:</label>
-            <textarea rows="10" class="form-control" id="ldesc" name="ldesc" placeholder="Description of the package." required="required" ></textarea>
-
+            <textarea rows="5" class="form-control" id="ldesc" name="ldesc" placeholder="Description of the package." required="required" ></textarea>
+            <label for="platform">Platforms: <small>Ctrl-click or Command-click to select multiple platforms</small></label>
+            <select class="form-control" multiple="multiple" name="platform[]">
+                <?php
+                foreach ($PLATFORMS as $id => $name) {
+                    echo "<option value=\"$id\">$name</option>\n";
+                }
+                ?>
+            </select>
             <br />
             <input type="submit" class="btn btn-success" value="Publish" />
         </form>

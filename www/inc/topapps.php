@@ -17,7 +17,7 @@
  */
 
 $featured = json_decode(file_get_contents("../data/apps/featured.json"), true);
-$topapps = json_decode(file_get_contents("../data/apps/top.json"), true);
+//$topapps = json_decode(file_get_contents("../data/apps/top.json"), true);
 ?>
 <div class="container">
     <div class="row">
@@ -32,10 +32,10 @@ $topapps = json_decode(file_get_contents("../data/apps/top.json"), true);
                     <div class="row">
                         <?php
                         foreach ($featured as $key => $app) {
-                            echo '<div class="col-xs-4 col-sm-3 col-lg-2">'
+                            echo '<a class="col-xs-4 col-sm-3 col-lg-2" href="app.php?appid=' . $app['id'] . '">'
                             . '<img class="img-responsive" src="/appicon.php?id=' . $app['id'] . '" />'
                             . '<br><h4><small>' . $app['name'] . '</small></h4>'
-                            . '</div>';
+                            . '</a>';
                         }
                         ?>
                     </div>
