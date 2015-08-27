@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * Copyright (C) 2015 Apocalypse Laboratories
  *
  * This program is free software: you can redistribute it and/or modify

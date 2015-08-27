@@ -46,8 +46,8 @@ if (file_exists($userdir)) {
 
 
 $passwd = $userdir . "/passwd";
-file_put_contents($passwd, hash($HASH, $SALT.$pass));
-file_put_contents($userdir."/email.txt", $email);
+file_put_contents($passwd, hash($HASH, $SALT . $pass));
+file_put_contents($userdir . "/email.txt", $email);
 
 $_SESSION['user'] = $user;
 

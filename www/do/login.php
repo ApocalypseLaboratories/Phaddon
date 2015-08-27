@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * Copyright (C) 2015 Apocalypse Laboratories
  *
  * This program is free software: you can redistribute it and/or modify
@@ -27,10 +27,9 @@ $user = str_replace("/", "", $user);
 $user = str_replace("\\", "", $user);
 $pass = $_POST['pass'];
 
-$passwd = "../../data/users/".$user."/passwd";
+$passwd = "../../data/users/" . $user . "/passwd";
 if (file_exists($passwd)) {
-    if (hash($HASH, $SALT.$pass)
-            == file_get_contents($passwd)) {
+    if (hash($HASH, $SALT . $pass) == file_get_contents($passwd)) {
         $_SESSION['user'] = $user;
         header('Location: /index.php');
         die();

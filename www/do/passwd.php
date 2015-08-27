@@ -36,7 +36,7 @@ if ($_POST['newpass'] !== $_POST['confpass']) {
     die();
 }
 
-$passwd = "../../data/users/".$user."/passwd";
+$passwd = "../../data/users/" . $user . "/passwd";
 if (!(hash($HASH, $SALT . $_POST['oldpass']) == file_get_contents($passwd))) {
     header('Location: /user.php?err=badpass');
     die();
