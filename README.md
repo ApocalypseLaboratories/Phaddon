@@ -18,6 +18,26 @@ For example:
      |- webroot      <= www folder
      `  data         <= data folder
 
+Configuration
+-------------
+
+Edit the basic.php file in the data/config folder to setup things like the site name.
+
+Edit the data/apps/featured.json to change the featured app list.
+
+Sample featured app list:
+
+    {
+        "0": {
+            "name": "Test App",
+            "id": "com.example.app"
+        },
+        "1": {
+            "name": "Test App 2",
+            "id": "net.example.app2"
+        }
+    }
+
 License
 -------
 
