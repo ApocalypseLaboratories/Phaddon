@@ -41,7 +41,7 @@ if (file_exists($userdir)) {
     header('Location: /register.php?err=exists');
     die();
 } else {
-    mkdir($userdir, 0650, true);
+    mkdir($userdir, 0750, true);
 }
 
 
